@@ -87,7 +87,6 @@ var topcoder = (html) => {
     json.title = json.title.replace('Problem Statement for ','')
     json.body = $('td.problemText').text().trim();
 
-
     // console.log(json.title);
     // console.log(json.body);
     return json;
