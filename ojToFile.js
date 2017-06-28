@@ -1,6 +1,6 @@
 const fs        = require('fs');
 const request   = require('request');
-const parser    = require('./parsers/interviewbit.js');
+const parser    = require('./parsers/parsers.js');
 const argv      = require('yargs')
                 .option('url',{
                         desc: "url of the problem",
@@ -18,10 +18,23 @@ const argv      = require('yargs')
 const extension = argv.lang;
 const url       = argv.url;
 
-request(url, function(error, response, html){
+var options = {
+    url,
+    headers: {
+        'User-Agent': 'Chrome/41.0.2228.0'
+    }
+};
+
+request(options, (error, response, html) => {
     if(!error){
     if(url.includes('interviewbit')){
         json = parser.interviewbit(html);
+    }else if(url.includes('hackerrank')){
+        json = parser.hackerrank(html);
+    }else if(url.includes('leetcode')){
+        json = parser.leetcode(html);
+    }else {
+        return console.error('UnIdentified Online Judge Url');
     }
 
     json.url = url;
