@@ -2,11 +2,11 @@
 A node application to create a code file from onlile judge url.
 
 ### Online Judges Supported
- * [InterviewBit](www.interviewbit.com)
- * [LeetCode](leetcode.com)
- * [HackerEarth](hackerearth.com)
- * [SPOJ](spoj.com)
- * [TopCoder](topcoder.com)
+ * [InterviewBit](https://www.interviewbit.com)
+ * [LeetCode](https://www.leetcode.com)
+ * [HackerEarth](https://www.hackerearth.com)
+ * [SPOJ](https://www.spoj.com)
+ * [TopCoder](https://www.topcoder.com)
 ### Installation
 ojToFile requires [NodeJS 6+](https://nodejs.org/en/) to work.
 clone the project to your system and run below command to install all the dependencies.
