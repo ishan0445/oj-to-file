@@ -22,4 +22,5 @@ node ojToFile.js -u https://community.topcoder.com/stat?c=problem_statement&pm=1
 | --------- |--------------|----------------|
 | --url, -u |  url of the problem | [required] |
 | --lang, -l | file format (c , cpp , java , py) | [default: "cpp"] |
+| --save-path, -s | path to save the output file | [string] [default: "./"] |
 | --help | Show help | [boolean] |

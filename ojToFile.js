@@ -6,34 +6,34 @@ const _         = require('lodash');
 const loading   = require('loading-indicator');
 const presets   = require('loading-indicator/presets');
 const argv      = require('yargs')
-                .option('url',{
-                        desc: "url of the problem",
-                        alias: 'u',
-                        require: true
-                    })
-                .option('lang',{
-                        desc: "file format (c, cpp, java, py...)",
-                        alias: 'l',
-                        default: 'cpp'
-                    })
-                .option('config',{
-                        desc: 'path to the config file',
-                        alias: 'c',
-                        string: true
-                    })
-                .option('save-path',{
-                        desc: 'path to save the output file',
-                        alias: 's',
-                        string: true,
-                        default: './'
-                    })
-                .option('template-file-path',{
-                        desc: 'path of template file',
-                        alias: 't',
-                        string: true
-                    })
-                .help()
-                .argv;
+    .option('url',{
+            desc: "url of the problem",
+            alias: 'u',
+            require: true
+        })
+    .option('lang',{
+            desc: "file format (c, cpp, java, py...)",
+            alias: 'l',
+            default: 'cpp'
+        })
+    .option('config',{
+            desc: 'path to the config file',
+            alias: 'c',
+            string: true
+        })
+    .option('save-path',{
+            desc: 'path to save the output file',
+            alias: 's',
+            string: true,
+            default: './'
+        })
+    .option('template-file-path',{
+            desc: 'path of template file',
+            alias: 't',
+            string: true
+        })
+    .help()
+    .argv;
 
 const extension = argv.lang;
 const url       = argv.url;
@@ -41,7 +41,7 @@ const timer     = loading.start('Fetching Problem, Please wait..', {
   frames: presets.dots
 });
 
-console.log('argv:\n'+JSON.stringify(argv,undefined,3));
+// console.log('argv:\n'+JSON.stringify(argv,undefined,3));
 
 var options = {
     url,
