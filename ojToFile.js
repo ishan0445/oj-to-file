@@ -17,20 +17,21 @@ const argv      = require('yargs')
                         default: 'cpp'
                     })
                 .option('config',{
-                    desc: 'path to the config file',
-                    alias: 'c',
-                    string: true
-                })
+                        desc: 'path to the config file',
+                        alias: 'c',
+                        string: true
+                    })
                 .option('save-path',{
-                    desc: 'path to save the output file',
-                    alias: 's',
-                    string: true
-                })
+                        desc: 'path to save the output file',
+                        alias: 's',
+                        string: true,
+                        default: './'
+                    })
                 .option('template-file-path',{
-                    desc: 'path of template file',
-                    alias: 't',
-                    string: true
-                })
+                        desc: 'path of template file',
+                        alias: 't',
+                        string: true
+                    })
                 .help()
                 .argv;
 
@@ -39,6 +40,8 @@ const url       = argv.url;
 const timer     = loading.start('Fetching Problem, Please wait..', {
   frames: presets.dots
 });
+
+console.log('argv:\n'+JSON.stringify(argv,undefined,3));
 
 var options = {
     url,
@@ -74,17 +77,27 @@ request(options, (error, response, html) => {
 
         json.url = url;
         var data = `/*\nurl: ${json.url}\nTitle: ${json.title}\n${json.body}\n*/\n`;
+        var path = argv.savePath;
+        if (path !== './' && path.length-1 !== path.lastIndexOf('/')){
+            path += '/';
+        }
         var fileName = json.title;
         fileName = _.kebabCase(fileName);
         fileName = fileName + '.' + extension;
 
-        fs.writeFile(fileName, data, {flag: 'wx' },(err) => {
+        fs.writeFile(path + fileName, data, {flag: 'wx' },(err) => {
             if(!err){
                 loading.stop(timer);
                 return console.log("The file was saved!");
             }else if(err.code === 'EEXIST') {
                 loading.stop(timer);
-                console.error(`Error: File with name \"${err.path}\" already exists!`);
+                console.error(`Error: file with name \"${err.path}\" already exists!`);
+            }else if(err.code === 'ENOENT') {
+                loading.stop(timer);
+                console.error(`Error: no such file or directory, \"${path}${fileName}\".`);
+            }else{
+                loading.stop(timer);
+                console.error(`${err}`);
             }
         });
     }else {
