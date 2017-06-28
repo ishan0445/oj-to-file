@@ -11,6 +11,7 @@
   "dependencies": {
     "cheerio": "^1.0.0-rc.1",
     "html-to-text": "^3.3.0",
+    "lodash": "^4.17.4",
     "request": "^2.81.0",
     "yargs": "^8.0.2"
   }

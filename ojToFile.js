@@ -1,5 +1,6 @@
 const fs        = require('fs');
 const request   = require('request');
+const _         = require('lodash');
 const parser    = require('./parsers/parsers.js');
 const argv      = require('yargs')
                 .option('url',{
@@ -33,24 +34,26 @@ request(options, (error, response, html) => {
         json = parser.hackerrank(html);
     }else if(url.includes('leetcode')){
         json = parser.leetcode(html);
+    }else if(url.includes('hackerearth')){
+        json = parser.hackerearth(html);
+    }else if(url.includes('spoj')){
+        json = parser.spoj(html);
     }else {
         return console.error('UnIdentified Online Judge Url');
     }
 
     json.url = url;
     var data = `/*\nurl: ${json.url}\nTitle: ${json.title}\n${json.body}\n*/\n`;
-    var fileName = json.title+'.'+extension;
-    fileName = fileName.replace(/ /g,'-')
-    fileName = fileName.toLowerCase();
+    var fileName = json.title;
+    fileName = _.kebabCase(fileName);
+    fileName = fileName + '.' + extension;
 
     fs.writeFile(fileName, data, {flag: 'wx' },(err) => {
         if(!err){
             return console.log("The file was saved!");
-        }
-        else if(err.code === 'EEXIST') {
+        }else if(err.code === 'EEXIST') {
             console.error(`Error: File with name \"${err.path}\" already exists!`);
         }
-
     });
     }else {
         console.error("Error: Website not found!");

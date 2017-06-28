@@ -27,21 +27,48 @@ var hackerrank = (html) => {
 
 var leetcode = (html) => {
     var $ = cheerio.load(html);
-    console.log(html);
+    // console.log(html);
     var json = { title : "", body: "", code: ""};
 
     json.title = $('div.question-title.clearfix').text().trim();
     json.body = $('div.question-description').text().trim();
-    json.code = $('div.ace_layer.ace_text-layer').text().trim();
+
+    // console.log(json.title);
+    // console.log(json.body);
+    return json;
+}
+
+var hackerearth = (html) => {
+    var $ = cheerio.load(html);
+    // console.log(html);
+    var json = { title : "", body: "", code: ""};
+
+    json.title = $('div#problem-title').text().trim();
+    json.body = $('div.problem-description.line-height-18.less-margin-2.darker.content').text().trim();
+    json.body = json.body.replace(/ +/g, ' ');
 
     console.log(json.title);
     console.log(json.body);
-    console.log(json.code);
+    return json;
+}
+
+var spoj = (html) => {
+    var $ = cheerio.load(html);
+    // console.log(html);
+    var json = { title : "", body: "", code: ""};
+
+    json.title = $('h2#problem-name').text().trim();
+    json.body = $('div#problem-body').text().trim();
+
+    console.log(json.title);
+    console.log(json.body);
     return json;
 }
 
 module.exports = {
     interviewbit,
     hackerrank,
-    leetcode
+    leetcode,
+    hackerearth,
+    spoj
 }
