@@ -38,6 +38,10 @@ request(options, (error, response, html) => {
         json = parser.hackerearth(html);
     }else if(url.includes('spoj')){
         json = parser.spoj(html);
+    }else if(url.includes('codechef')){
+        json = parser.codechef(html);
+    }else if(url.includes('topcoder')){
+        json = parser.topcoder(html);
     }else {
         return console.error('UnIdentified Online Judge Url');
     }

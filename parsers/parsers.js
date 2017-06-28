@@ -47,8 +47,8 @@ var hackerearth = (html) => {
     json.body = $('div.problem-description.line-height-18.less-margin-2.darker.content').text().trim();
     json.body = json.body.replace(/ +/g, ' ');
 
-    console.log(json.title);
-    console.log(json.body);
+    // console.log(json.title);
+    // console.log(json.body);
     return json;
 }
 
@@ -60,8 +60,36 @@ var spoj = (html) => {
     json.title = $('h2#problem-name').text().trim();
     json.body = $('div#problem-body').text().trim();
 
-    console.log(json.title);
-    console.log(json.body);
+    // console.log(json.title);
+    // console.log(json.body);
+    return json;
+}
+
+var codechef = (html) => {
+    var $ = cheerio.load(html);
+    // console.log(html);
+    var json = { title : "", body: "", code: ""};
+
+    json.title = $('aside.breadcrumbs').text().trim();
+    json.body = $('div.problem-statement').text().trim();
+
+    // console.log(json.title);
+    // console.log(json.body);
+    return json;
+}
+
+var topcoder = (html) => {
+    var $ = cheerio.load(html);
+    // console.log(html);
+    var json = { title : "", body: "", code: ""};
+
+    json.title = $('td.statTextBig').text().trim();
+    json.title = json.title.replace('Problem Statement for ','')
+    json.body = $('td.problemText').text().trim();
+
+
+    // console.log(json.title);
+    // console.log(json.body);
     return json;
 }
 
@@ -70,5 +98,7 @@ module.exports = {
     hackerrank,
     leetcode,
     hackerearth,
-    spoj
+    spoj,
+    codechef,
+    topcoder
 }
